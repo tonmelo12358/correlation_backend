@@ -2,7 +2,7 @@
 
 Bem vindo ao back-end da solução Correlation.
 
-Correlation é uma ferramente útil para as empresas que precisam integrar bases de aplicações diferentes. 
+Correlation é uma ferramenta útil para as empresas que precisam integrar bases de aplicações diferentes. 
 
 Um dos grandes desafios das grandes empresas é conseguir relacionar suas informações ao longo de uma cadeia de valor.
 
