@@ -1,109 +1,68 @@
-# Back-end Correlation
+# API Correlation
 
-Bem vindo ao back-end da solução Correlation.
+Este projeto faz parte da Disciplina **Desenvolvimento Full Stack Básico** da pós graduação em Engenharia de Software da PUC-RIO.
 
-Correlation é uma ferramenta útil para as empresas que precisam integrar bases de aplicações diferentes. 
+O objetivo é criar uma aplicação no padrão MVC composta de API e. um front-end.
 
-Um dos grandes desafios das grandes empresas é conseguir relacionar suas informações ao longo de uma cadeia de valor.
+A aplicação escolhida para este projeto é o Correlation. Uma ferramenta útil para correlação de IDs entre diferentes bases de dados.
 
-Quando temos diferentes sistemas que lidam com informações dentro de um mesmo domínio de informação, certamente teremos relação entre entidades destes sistemas.
+Grandes empresas possuem diversos desafios para gerenciar seus dados master, pois muitas vezes temos mais de uma aplicação gerenciando um domínio de informação. Uma forma de resolver este problema é fazer a correlação entre as entidades dessas aplicações em um sistema externo, como é o caso do **Correlation** . Uma vez feita esta correlação podemos consultar a base e buscar as informações corretamente.
 
-Imagine 2 sistemas que lidam com produção de conteúdo. Um deles cuida da parte de edição, e o outro gerencia os recursos de uma produção em andamento.
 
-Ambos possuem informações comuns, como:
-- Conteúdo;
-- Temporada (caso seja uma série/novela);
-- Episódio;
+## Como executar
+Será necessário ter todas as libs python listadas no `requirements.txt` instaladas.
 
-Quando for necessário integrar estes 2 sistemas, as bases irão precisar de sincronização. É aí que o Correlation atua! Ele recebe, guarda e disponibiliza estas correlações através de APIs. 
-## 🚀 Começando
+Após clonar o repositório, é necessário ir ao diretório raiz, pelo terminal, para poder executar os comandos descritos abaixo.
 
-Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
+ É fortemente indicado o uso de ambientes virtuais do tipo [virtualenv](https://virtualenv.pypa.io/en/latest/installation.html).
 
-Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar o projeto.
-
-### 📋 Pré-requisitos
-
-De que coisas você precisa para instalar o software e como instalá-lo?
+Para criação de ambiente virtual, execute o seguinte comando:
 
 ```
-Dar exemplos
+python3 -m venv nome_do ambiente_virtual
+```
+Para ativar o ambiente virtual execute o seguinte comando:
+```
+source env/bin/activate
+```
+O comando a seguir instala as dependências/bibliotecas, descritas no arquivo `requirements.txt`.
+```
+(env)$ pip install -r requirements.txt
+```
+Após a criação do ambiente virtual e instalar os arquivos/bibliotecas de requirements.txt, basta executar a API com o seguinte comando:
+```
+(env)$ flask run --host 0.0.0.0 --port 5000
 ```
 
-### 🔧 Instalação
+Abra o [http://localhost:5000/#/](http://localhost:5000/#/) no navegador para verificar o status da API em execução. Você será redirecionado para Swagger, onde terá acesso às documentações das APIs.
 
-Uma série de exemplos passo-a-passo que informam o que você deve executar para ter um ambiente de desenvolvimento em execução.
+## Como funciona o Back end
 
-Diga como essa etapa será:
+O Back end é composto por um banco de dados Sqlite3 com um tabela chamada **correlacao**. Ela guarda todas as correlações e os grupos.
+Existe uma etapa de normalização do atributo grupo, transformando todos os caracteres em maiúsculos e colocando separadores para os espaços. Desta forma evitaremos que um grupo de memso nome seja duplicado por conta das diferentes formas de escrita.
+Para operações de leitura e escrita no banco foram criadas rotas, que estão escritas no arquivo principal do código (app.py).
+foram criadas as seguintes rotas:
 
-```
-Dar exemplos
-```
+-  **get correlacoes**: Retorna uma representação da listagem de correlações;
+- **get correlacao**: Faz a busca por uma correlação a partir do ID de correlação.
+- **get correlacoes/grupo**: Faz a busca pelas correlações a partir de um grupo.
+- **get correlacoes/sistema_origem**: Faz a busca pelas correlações a partir de um sistema de origem.
+- **get correlacoes/sistema_destino**: Faz a busca pelas correlações a partir de um grupo.
+- **post correlacao**: Adiciona uma nova correlacao no banco de dados.
+- **delete correlacao**: Exclui uma correlação a partir do ID de correlação.
+- **delete correlacao del_full**: Exclui uma correlação a partir dos atributos da correlacao.
 
-E repita:
+## Melhoria Contínua  
+  
+Este trabalho é um MVP de pós-graduação. O objetivo principal aqui é aplicar os conhecimentos adquiridos no módulo de desenvolvimento full stack básico, em que foram tratados os temas de Programação Orientada a Objetos (POO), utilizando a linguagem python como base, Bancos de Dados e tópicos de desenvolvimento.
 
-```
-Até finalizar
-```
+Alguns pontos foram identificados mas não foram tratados neste projetos. Segue proposta de melhorias para o correlation:
 
-Termine com um exemplo de como obter dados do sistema ou como usá-los para uma pequena demonstração.
+- Página de login.
+- Página de Admin para gestão de acessos e perfis.
+- Divisão da tabela nas tabelas de itens de correlação (sistema / entidade / id) e indicação se os itens são relativos à origem ou ao destino. Desta forma podemos habilitar o envio dos itens de maneira separada, e a correlação pode ser feita via front-end. 
+- Criação da tabela Grupo para melhorar o tratamento dos grupos e realizar levantamentos diversos a partir da entidade grupo. 
 
-## ⚙️ Executando os testes
+## Sobre o autor 
 
-Explicar como executar os testes automatizados para este sistema.
-
-### 🔩 Analise os testes de ponta a ponta
-
-Explique que eles verificam esses testes e porquê.
-
-```
-Dar exemplos
-```
-
-### ⌨️ E testes de estilo de codificação
-
-Explique que eles verificam esses testes e porquê.
-
-```
-Dar exemplos
-```
-
-## 📦 Implantação
-
-Adicione notas adicionais sobre como implantar isso em um sistema ativo
-
-## 🛠️ Construído com
-
-Mencione as ferramentas que você usou para criar seu projeto
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - O framework web usado
-* [Maven](https://maven.apache.org/) - Gerente de Dependência
-* [ROME](https://rometools.github.io/rome/) - Usada para gerar RSS
-
-## 🖇️ Colaborando
-
-Por favor, leia o [COLABORACAO.md](https://gist.github.com/usuario/linkParaInfoSobreContribuicoes) para obter detalhes sobre o nosso código de conduta e o processo para nos enviar pedidos de solicitação.
-
-## 📌 Versão
-
-Nós usamos [SemVer](http://semver.org/) para controle de versão. Para as versões disponíveis, observe as [tags neste repositório](https://github.com/suas/tags/do/projeto). 
-
-## ✒️ Autores
-
-Mencione todos aqueles que ajudaram a levantar o projeto desde o seu início
-
-* **Um desenvolvedor** - *Trabalho Inicial* - [umdesenvolvedor](https://github.com/linkParaPerfil)
-* **Fulano De Tal** - *Documentação* - [fulanodetal](https://github.com/linkParaPerfil)
-
-Você também pode ver a lista de todos os [colaboradores](https://github.com/usuario/projeto/colaboradores) que participaram deste projeto.
-
-## 📄 Licença
-
-Este projeto está sob a licença (sua licença) - veja o arquivo [LICENSE.md](https://github.com/usuario/projeto/licenca) para detalhes.
-
-## 🎁 Expressões de gratidão
-
-* Conte a outras pessoas sobre este projeto 📢;
-* Convide alguém da equipe para uma cerveja 🍺;
-* Um agradecimento publicamente 🫂;
-* etc.
+O autor deste projeto é Wellington Melo (Ton Melo), Global MBA, engenheiro eletricista com especialização em engenharia de automação. No momento da criação deste projeto atuo como especialista de arquitetura de tecnologia na Globo e estou buscando conhecimento mais profundo em arquitetura e desenvolvimento de sistemas de TI.
